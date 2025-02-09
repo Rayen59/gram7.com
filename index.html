@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wavegram - Liberté Absolue</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e60000;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .skip-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e60000;
+            color: black;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .chat-container {
+            width: 80%;
+            max-width: 600px;
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #e60000;
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            text-align: left;
+            padding: 10px;
+            background: #111;
+            border-radius: 5px;
+            color: #e60000;
+        }
+        .user-input {
+            display: flex;
+            margin-top: 10px;
+        }
+        input {
+            flex: 1;
+            padding: 10px;
+            background: #222;
+            color: #e60000;
+            border: 1px solid #e60000;
+            border-radius: 5px;
+        }
+        button {
+            background: #e60000;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button class="skip-btn" onclick="window.location.href='https://rayen59.github.io/wavegram.com'">Skip</button>
+    <div class="chat-container">
+        <h1>Wavegram - Liberté Absolue</h1>
+        <div class="chat-box" id="chat"></div>
+        <div class="user-input">
+            <input type="text" id="userInput" placeholder="Écris ta réponse...">
+            <button onclick="nextQuestion()">Envoyer</button>
+        </div>
+    </div>
+    <script>
+        let questions = [
+            "Bienvenue, voyageur... Quel est le surnom que tu veux utiliser ici?", 
+            "Ah, <strong>[pseudo]</strong>... Te voilà dans un espace sans limite. Que ressens-tu face à l'idée d'une liberté absolue?", 
+            "Les lois existent-elles pour protéger ou pour asservir?", 
+            "Si tu avais la possibilité d'effacer toute trace de ton existence, le ferais-tu? Pourquoi?", 
+            "Que penses-tu de la surveillance massive sur Internet?", 
+            "La liberté est-elle un droit ou un privilège?", 
+            "Si tout était permis pendant 24 heures, que ferais-tu en premier?", 
+            "Penses-tu que la censure peut parfois être justifiée?", 
+            "Installe l'application et découvre par toi-même la vraie autonomie: <a href='https://rayen59.github.io/wavegram.com' target='_blank'>Wavegram</a>"
+        ];
+        let index = 0;
+        
+        function startConversation() {
+            let chatBox = document.getElementById("chat");
+            chatBox.innerHTML = "<p><strong>Wavegram:</strong> " + questions[index] + "</p>";
+        }
+        
+        function nextQuestion() {
+            let chatBox = document.getElementById("chat");
+            let userInput = document.getElementById("userInput").value;
+            if (userInput.trim() === "") return;
+            if (index === 0) {
+                questions[1] = questions[1].replace("[pseudo]", userInput);
+            }
+            chatBox.innerHTML += "<p><strong>Toi:</strong> " + userInput + "</p>";
+            document.getElementById("userInput").value = "";
+            index++;
+            if (index < questions.length) {
+                setTimeout(() => {
+                    chatBox.innerHTML += "<p><strong>Wavegram:</strong> " + questions[index] + "</p>";
+                }, 1000);
+            }
+        }
+        
+        window.onload = startConversation;
+    </script>
+</body>
+</html>
